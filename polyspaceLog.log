@@ -1,0 +1,448 @@
+<polyspace-bug-finder R2019a PID9852 PGID9852>
+
+Polyspace verification of sample1 project.
+Starting at 05/28/2021, 02h39.
+
+Remark: Option -float-rounding-mode has no effect in Polyspace Bug Finder
+
+Remark: Option -O2 has no effect in Polyspace Bug Finder
+
+Remark: Option -to has no effect in Polyspace Bug Finder
+
+Remark: Option -main-generator-calls has no effect in Polyspace Bug Finder
+
+Remark: Option -main-generator-writes-variables has no effect in Polyspace Bug
+
+|       Finder
+
+Remark: Option -check-subnormal has no effect in Polyspace Bug Finder
+
+Remark: Option -uncalled-function-checks has no effect in Polyspace Bug Finder
+
+Activated checkers: 
+       INT_ZERO_DIV, FLOAT_ZERO_DIV, INT_CONV_OVFL, UINT_CONV_OVFL, SIGN_CHANGE, FLOAT_CONV_OVFL, 
+  INT_STD_LIB, FLOAT_STD_LIB, OUT_BOUND_ARRAY, NULL_PTR, OUT_BOUND_PTR, FUNC_CAST, PTR_CAST, 
+  MEM_STD_LIB, STR_STD_LIB, FREED_PTR, DOUBLE_DEALLOCATION, BAD_FREE, BAD_EQUAL_USE, 
+  BAD_EQUAL_EQUAL_USE, DECL_MISMATCH, MISSING_NULL_CHAR, PTR_SIZEOF_MISMATCH, TYPEDEF_MISMATCH, 
+  USELESS_WRITE, NON_INIT_VAR, NON_INIT_PTR, VAR_SHADOWING, MISSING_RETURN, RESOURCE_LEAK, 
+  UNREACHABLE, DEAD_CODE, PARTIALLY_ACCESSED_ARRAY, USELESS_IF, DEADLOCK, BAD_LOCK, DOUBLE_LOCK, 
+  DATA_RACE, DOUBLE_UNLOCK, BAD_UNLOCK, OTHER_STD_LIB, ASSERT, STRING_FORMAT, IMPROPER_ARRAY_INIT, 
+  BAD_PTR_SCALING, SIZEOF_MISUSE, FLOAT_ABSORPTION, LOCAL_ADDR_ESCAPE, STR_FORMAT_BUFFER_OVERFLOW, 
+  STRLIB_BUFFER_OVERFLOW, STRLIB_BUFFER_UNDERFLOW, PUTENV_AUTO_VAR, PTR_TO_DIFF_ARRAY, 
+  ALIGNMENT_CHANGE, READ_ONLY_RESOURCE_WRITE, CLOSED_RESOURCE_USE, DOUBLE_RESOURCE_CLOSE, 
+  DOUBLE_RESOURCE_OPEN, OPERATOR_PRECEDENCE, STD_FUNC_ARG_MISMATCH, INVALID_MEMORY_ASSUMPTION, 
+  CONSTANT_OBJECT_WRITE, INVALID_VA_LIST_ARG, NON_POSITIVE_VLA_SIZE, MEMCMP_STRINGS, 
+  MEMCMP_PADDING_DATA, INVALID_ENV_POINTER, ERRNO_MISUSE, MISSING_ERRNO_RESET, CHARACTER_MISUSE, 
+  CHAR_EOF_CONFUSED, IO_INTERLEAVING, SIG_HANDLER_COMP_EXCP_RETURN, SIG_HANDLER_CALLING_SIGNAL, 
+  UNPROTOTYPED_FUNC_CALL, FILE_OBJECT_MISUSE, FLEXIBLE_ARRAY_MEMBER_STRUCT_MISUSE, 
+  SIG_HANDLER_SHARED_OBJECT, MACRO_USED_AS_OBJECT, SIDE_EFFECT_IGNORED, PRE_UCNAME_JOIN_TOKENS, 
+  PRE_DIRECTIVE_MACRO_ARG, INLINE_CONSTRAINT_NOT_RESPECTED, VA_ARG_INCORRECT_TYPE, 
+  TOO_MANY_VA_ARG_CALLS, STREAM_WITH_SIDE_EFFECT, TEMP_OBJECT_ACCESS, SIG_HANDLER_ERRNO_MISUSE, 
+  VA_START_MISUSE, VA_START_INCORRECT_TYPE, DATA_RACE_STD_LIB, ATOMIC_VAR_ACCESS_TWICE, 
+  ATOMIC_VAR_SEQUENCE_NOT_ATOMIC
+
+
+Verifying sources compliance ...
+
+Options used with Verifier:
+-prog=sample1
+-lang=C
+-polyspace-version=3.0 (R2019a)
+-results-dir=D:\sample_polyspace_pro\Module_1\BF_Result
+-date=28/05/2021
+
+User:
+-target=i386
+-compiler=generic
+-stop-if-compile-error=true
+-dos=true
+-report-output-format=HTML
+-report-template=Polyspace-Doc\BugFinderSummary.rpt
+-do-not-generate-results-for=all-headers
+-verif-version=1.0
+-author=JenkinsTest
+-code-metrics=true
+-misra3=all
+-unsigned-integer-overflows=allow
+-signed-integer-overflows=forbid
+
+
+Verifying host configuration:
+Number of cores:                32
+Processor type:                 amd64
+Processor model:                Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz
+Processor frequency:            2.95 GHz
+Memory > 4 GB:                                                    63.62 GB
+Tmp space available in C:\Users\JENKIN~1\AppData\Local\Temp\2:    783.22 GB
+
+Remark: 32 core(s) detected. The verification creates 32 process(es).
+*** Configuration of the host :	OK
+
+
+Type D:\sample_polyspace_pro\Module_1\BF_Result\kill-rte-kernel.bat on host BCSRV006 to halt Verifier process
+
+
+Checking license ...
+
+License is OK
+
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:39:30 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Verifying C sources
+***
+**********************************************************
+
+Verifying sources ...
+Verifying bank management system.c (1/1)
+C:\Users\JenkinsTest\Downloads\Mini Project in C Bank Management System\bank management system.c, line 3: warning: could not find include file "windows.h"
+|  #include<windows.h>
+|                     ^
+
+C:\Users\JenkinsTest\Downloads\Mini Project in C Bank Management System\bank management system.c, line 563 (column 25): Warning: main must not be called, neither directly nor by pointer. removing the call ...
+Global compilation phase...
+
+Number of files                  : 1
+Number of lines                  : 578
+Number of lines without comments : 507
+
+Verifying cross-files ANSI C compliance
+
+Stubbing standard library functions ...
+C:\Users\JenkinsTest\Downloads\Mini Project in C Bank Management System\bank management system.c, line 215 (column 89): Warning: the prototype for function 'strcmpi' is unknown.
+| Derived prototype of function from its call is: int strcmpi(void *, void *)
+Remark: The generated default DRS XML file "drs-template.xml" can be found in <result_dir> folder.
+Doing code transformations ...
+
+
+**********************************************************
+MISRA C:2012 Rule checker results
+ Use the Report Generator in order to get the complete report.
+Coding standards checking might not be complete. Some rule violations
+ are detected after the source compliance checking phase.
+**********************************************************
+Summary per file:
+  File C:\Users\JenkinsTest\Downloads\Code\Mini Project in C Bank Management System\bank management system.c: 
+    507 rules violated
+**********************************************************
+Summary per rule:
+  rule 17.7 violated 164 times
+  rule 21.6 violated 150 times
+  rule 21.8 violated 29 times
+  rule D4.6 violated 29 times
+  rule 15.6 violated 25 times
+  rule 8.7 violated 17 times
+  rule 7.4 violated 13 times
+  rule 17.2 violated 12 times
+  rule 8.4 violated 10 times
+  rule 10.3 violated 9 times
+  rule 15.1 violated 8 times
+  rule 15.2 violated 8 times
+  rule 12.1 violated 5 times
+  rule 15.7 violated 4 times
+  rule 8.2 violated 4 times
+  rule D1.1 violated 4 times
+  rule 5.3 violated 3 times
+  rule 5.8 violated 3 times
+  rule 13.5 violated 2 times
+  rule 10.4 violated 1 time
+  rule 10.7 violated 1 time
+  rule 16.1 violated 1 time
+  rule 16.4 violated 1 time
+  rule 21.2 violated 1 time
+  rule 3.1 violated 1 time
+  rule 4.1 violated 1 time
+  rule 8.3 violated 1 time
+
+
+
+
+Packing compilation data
+
+Defects statistics:
+  - Total number of defects: 38
+  - STRING_FORMAT: 1
+  - STR_FORMAT_BUFFER_OVERFLOW: 34
+  - VAR_SHADOWING: 3
+done.
+
+**********************************************************
+***
+*** C sources verification done
+***
+**********************************************************
+Ending at: Fri May 28 02:39:34 2021
+User time for compilation: 00:00:04.50 (4.5real, 4.5u + 0s (0.16gc))
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:39:34 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Beginning Bug-finder - Pre-analysis
+***
+**********************************************************
+**** Bug-finder - Pre-analysis - 1 (P_AL)
+Total complexity = 44018
+**** Bug-finder - Pre-analysis - 1 (P_AL) took 0.81real, 0.81u + 0s (0.17gc)
+**** Bug-finder - Pre-analysis - 2 (P_ACP)
+* n-acp-t = 0 n-epp' = 0 n-acp-l = 0
+**** Bug-finder - Pre-analysis - 2 (P_ACP) took 0.04real, 0.04u + 0s (0.02gc)
+**** Bug-finder - Pre-analysis - 3 (P_O)
+**** Bug-finder - Pre-analysis - 3 (P_O) took 0.11real, 0.11u + 0s (0.03gc)
+**** Bug-finder - Pre-analysis - 4 (P_MA)
+**** Bug-finder - Pre-analysis - 4 (P_MA) took 0.1real, 0.1u + 0s
+**** Bug-finder - Pre-analysis - 5 (P_G)
+**** Bug-finder - Pre-analysis - 5 (P_G) took 0.25real, 0.25u + 0s (0.03gc)
+**** Bug-finder - Pre-analysis - 6 (P_DRC)
+**** Bug-finder - Pre-analysis - 6 (P_DRC) took 0real, 0u + 0s
+**** Bug-finder - Pre-analysis - 7 (P_TT)
+**** Bug-finder - Pre-analysis - 7 (P_TT) took 0real, 0u + 0s
+**** Bug-finder - Pre-analysis - 8 (P_FI)
+**** Bug-finder - Pre-analysis - 8 (P_FI) took 0.18real, 0.18u + 0s (0.02gc)
+
+Generating GUI files
+
+Defects statistics:
+  - Total number of defects: 38
+  - STRING_FORMAT: 1
+  - STR_FORMAT_BUFFER_OVERFLOW: 34
+  - VAR_SHADOWING: 3
+
+GUI files generation completed in 0.36real
+
+**********************************************************
+***
+*** Bug-finder - Pre-analysis done
+***
+**********************************************************
+Ending at: Fri May 28 02:39:37 2021
+User time for pre-analysis: 00:00:03.2 (3.02real, 3.02u + 0s (0.11gc))
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:39:37 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Beginning Bug-finder - Function Analysis
+***
+**********************************************************
+**** Bug-finder - Function Analysis - (Verifying function #1 / 11: see)
+**** Bug-finder - Function Analysis - (Verifying function #2 / 11: edit)
+**** Bug-finder - Function Analysis - (Verifying function #3 / 11: close)
+**** Bug-finder - Function Analysis - (Verifying function #4 / 11: interest)
+**** Bug-finder - Function Analysis - (Verifying function #5 / 11: fordelay)
+**** Bug-finder - Function Analysis - (Verifying function #6 / 11: view_list)
+**** Bug-finder - Function Analysis - (Verifying function #7 / 11: main)
+**** Bug-finder - Function Analysis - (Verifying function #8 / 11: erase)
+**** Bug-finder - Function Analysis - (Verifying function #9 / 11: new_acc)
+**** Bug-finder - Function Analysis - (Verifying function #10 / 11: transact)
+**** Bug-finder - Function Analysis - (Verifying function #11 / 11: menu)
+**** Bug-finder - Function Analysis - (Verifying function #4 / 11: interest) took 0.61real
+**** Bug-finder - Function Analysis - (Verifying function #3 / 11: close) took 0.61real
+**** Bug-finder - Function Analysis - (Verifying function #5 / 11: fordelay) took 0.64real
+**** Bug-finder - Function Analysis - (Verifying function #11 / 11: menu) took 1.03real
+**** Bug-finder - Function Analysis - (Verifying function #7 / 11: main) took 1.55real
+**** Bug-finder - Function Analysis - (Verifying function #6 / 11: view_list) took 2.38real
+**** Bug-finder - Function Analysis - (Verifying function #8 / 11: erase) took 4.76real
+**** Bug-finder - Function Analysis - (Verifying function #9 / 11: new_acc) took 5.14real
+**** Bug-finder - Function Analysis - (Verifying function #2 / 11: edit) took 7.22real
+**** Bug-finder - Function Analysis - (Verifying function #10 / 11: transact) took 8.23real
+**** Bug-finder - Function Analysis - (Verifying function #1 / 11: see) took 11.76real
+Maximum Memory Usage: 4070 MB
+
+Generating GUI files
+
+Defects statistics:
+  - Total number of defects: 40
+  - USELESS_WRITE: 1
+  - IO_INTERLEAVING: 1
+  - STRING_FORMAT: 1
+  - STR_FORMAT_BUFFER_OVERFLOW: 34
+  - VAR_SHADOWING: 3
+
+GUI files generation completed in 0.39real
+
+* Total IL complexity: 89550
+
+**********************************************************
+***
+*** Bug-finder - Function Analysis done
+***
+**********************************************************
+Ending at: Fri May 28 02:39:54 2021
+User time for function: 00:00:16.73 (16.73real, 16.73u + 0s (0.05gc))
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:39:54 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Beginning Bug-finder - Module Analysis
+***
+**********************************************************
+**** Bug-finder - Module Analysis - 1 (Computing modules)
+* Created 1 module
+**** Bug-finder - Module Analysis - 1 (Computing modules) took 0.04real, 0.04u + 0s (0.03gc)
+**** Bug-finder - Module Analysis - (Verifying module #1 / 1: 11 functions)
+**** Bug-finder - Module Analysis - (Verifying module #1 / 1: 11 functions) took 23.26real
+Maximum Memory Usage: 4070 MB
+
+Generating GUI files
+
+Defects statistics:
+  - Total number of defects: 40
+  - USELESS_WRITE: 1
+  - IO_INTERLEAVING: 1
+  - STRING_FORMAT: 1
+  - STR_FORMAT_BUFFER_OVERFLOW: 34
+  - VAR_SHADOWING: 3
+
+GUI files generation completed in 0.77real
+
+**********************************************************
+***
+*** Bug-finder - Module Analysis done
+***
+**********************************************************
+Ending at: Fri May 28 02:40:18 2021
+User time for module: 00:00:24.18 (24.19real, 24.19u + 0s (0.05gc))
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:40:18 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Beginning Bug-finder - Global analysis
+***
+**********************************************************
+**** Bug-finder - Global analysis - 1 (P_CCG)
+**** Bug-finder - Global analysis - 1 (P_CCG) took 0real, 0u + 0s
+
+Generating GUI files
+
+Defects statistics:
+  - Total number of defects: 40
+  - USELESS_WRITE: 1
+  - IO_INTERLEAVING: 1
+  - STRING_FORMAT: 1
+  - STR_FORMAT_BUFFER_OVERFLOW: 34
+  - VAR_SHADOWING: 3
+
+GUI files generation completed in 0.35real
+
+
+**********************************************************
+MISRA C:2012 Rule checker results
+ Use the Report Generator in order to get the complete report.
+**********************************************************
+Summary per file:
+  File C:\Users\JenkinsTest\Downloads\Code\Mini Project in C Bank Management System\bank management system1.c: 
+    595 rules violated
+**********************************************************
+Summary per rule:
+  rule 17.7 violated 164 times
+  rule 21.6 violated 150 times
+  rule D4.7 violated 87 times
+  rule 21.8 violated 29 times
+  rule D4.6 violated 29 times
+  rule 15.6 violated 25 times
+  rule 8.7 violated 17 times
+  rule 7.4 violated 13 times
+  rule 17.2 violated 12 times
+  rule 8.4 violated 10 times
+  rule 10.3 violated 9 times
+  rule 15.1 violated 8 times
+  rule 15.2 violated 8 times
+  rule 12.1 violated 5 times
+  rule 15.7 violated 4 times
+  rule 8.2 violated 4 times
+  rule D1.1 violated 4 times
+  rule 5.3 violated 3 times
+  rule 5.8 violated 3 times
+  rule 13.5 violated 2 times
+  rule 10.4 violated 1 time
+  rule 10.7 violated 1 time
+  rule 16.1 violated 1 time
+  rule 16.4 violated 1 time
+  rule 2.2 violated 1 time
+  rule 21.2 violated 1 time
+  rule 3.1 violated 1 time
+  rule 4.1 violated 1 time
+  rule 8.3 violated 1 time
+
+**********************************************************
+***
+*** Bug-finder - Global analysis done
+***
+**********************************************************
+Ending at: Fri May 28 02:40:19 2021
+User time for global: 00:00:00.84 (0.84real, 0.84u + 0s (0.12gc))
+
+Polyspace C analysis
+Copyright 1999-2020 The MathWorks, Inc.
+All rights reserved.
+
+Starting at: Fri May 28 02:40:19 2021
+Host: MINGW64_NTx_64-6.2 BCSRV006 0 amd64
+User: JenkinsTest
+**********************************************************
+***
+*** Beginning Bug-finder - Report generation
+***
+**********************************************************
+Polyspace Report Generator
+Loading results
+  Loaded "sample1 - BF_Result"
+Generating Report
+Template    : BugFinderSummary.rpt
+Results-dir : D:\sample_polyspace_pro\Module_1\BF_Result
+Format      : dom-html-file
+Output-Name : D:\sample_polyspace_pro\Module_1\BF_Result\PolySpace-Doc\sample1_BugFinderSummary.html
+    Beginning report
+      Processing Summary
+      Processing Metrics Summary
+      Processing MISRA C:2012 Guidelines summary by rule barchart
+      Processing MISRA C:2012 Guidelines summary by rule table
+      Processing Defects Summary
+      Processing Configuration 
+      Processing Abbreviations and Acronyms
+    Converting report
+    Report complete
+    Generated: D:\sample_polyspace_pro\Module_1\BF_Result\PolySpace-Doc\sample1_BugFinderSummary.html (496 rows)
+ 
+**********************************************************
+***
+*** Bug-finder - Report generation done
+***
+**********************************************************
+Ending at: Fri May 28 02:41:14 2021
+User time for report-generator: 00:00:54.66 (54.67real, 54.67u + 0s)
+User time for polyspace-bug-finder: 00:01:44 (104.56real, 104.56u + 0s (0.48gc))
+
+***
+*** End of Polyspace analysis
+***
