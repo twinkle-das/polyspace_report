@@ -9,6 +9,8 @@ import datetime
 
 input_file_path = sys.argv[1]
 output_file_path = sys.argv[2]
+job_build_id = sys.argv[3]
+job_name = sys.argv[4]
 db_helper = DB_Helper()
 
 sql = '''CREATE TABLE IF NOT EXISTS POLYSPACE(
@@ -30,15 +32,15 @@ def get_violated_rule():
     doc.appendChild(root)
 
     build_id = doc.createElement("build_id")
-    bid = doc.createTextNode("101")
+    bid = doc.createTextNode(str(job_build_id))
     build_id.appendChild(bid)
 
-    job_name = doc.createElement("job_name")
-    jname = doc.createTextNode("Polyspace Report")
-    job_name.appendChild(jname)
+    jname = doc.createElement("job_name")
+    jn = doc.createTextNode(str(job_name))
+    jname.appendChild(jn)
 
     root.appendChild(build_id)
-    root.appendChild(job_name)
+    root.appendChild(jname)
 
     with open(input_file_path, "r") as ip:
         line = ip.readline()
@@ -75,9 +77,9 @@ def get_violated_rule():
 
             ts = time.time()
             timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-            args = (rn, vc, violations, timestamp)
+            args = (job_build_id, job_name, rn, vc, violations, timestamp)
             db_helper.execute_query("""INSERT INTO POLYSPACE(BUILD_ID, JOB_NAME, RULE_NUMBER, VIOLATION_COUNT, TOTAL_VIOLATION, MODIFIED_ON) 
-                VALUES ('101', 'Polyspace Report', %s, %s, %s, %s)""", args)
+                VALUES (%s, %s, %s, %s, %s, %s)""", args)
 
         total_violation = doc.createElement("total_violation")
         tv = doc.createTextNode(str(violations))
