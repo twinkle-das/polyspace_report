@@ -77,9 +77,8 @@ def get_violated_rule():
 
             ts = time.time()
             timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-            args = (job_build_id, job_name, rn, vc, violations, timestamp)
-            db_helper.execute_query("""INSERT INTO POLYSPACE(BUILD_ID, JOB_NAME, RULE_NUMBER, VIOLATION_COUNT, TOTAL_VIOLATION, MODIFIED_ON) 
-                VALUES (%s, %s, %s, %s, %s, %s)""", args)
+            db_helper.execute_query(f"""INSERT INTO POLYSPACE(BUILD_ID, JOB_NAME, RULE_NUMBER, VIOLATION_COUNT, TOTAL_VIOLATION, MODIFIED_ON) 
+            VALUES ('{job_build_id}', '{job_name}', '{rn}', '{vc}', '{violations}', '{timestamp}')""")
 
         total_violation = doc.createElement("total_violation")
         tv = doc.createTextNode(str(violations))
@@ -88,7 +87,7 @@ def get_violated_rule():
         
     with open(output_file_path, "w") as op:
         op.write(doc.toprettyxml(indent="\t"))
-        print("Successfully Generated XML {}".format(output_file_path))
+        print(f"Successfully Generated XML {output_file_path}")
 
 
 if __name__ == "__main__":
