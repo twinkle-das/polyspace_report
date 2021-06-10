@@ -7,13 +7,10 @@ import re
 from Db_Helper import DB_Helper
 import datetime
 
-input_file_path = sys.argv[1]
+polyspace_log_file = sys.argv[1]
 threshold_properties_file = sys.argv[2]
-output_file_path = sys.argv[3]
-job_build_id = sys.argv[4]
-job_name = sys.argv[5]
-job_status = sys.argv[6]
-build_trigger_time = sys.argv[7]
+build_log_file = sys.argv[3]
+output_file = sys.argv[4]
 db_helper = DB_Helper()
 
 sql = '''CREATE TABLE IF NOT EXISTS POLYSPACE(
@@ -40,11 +37,6 @@ def get_violated_rule():
     root = doc.createElement("root")
     doc.appendChild(root)
 
-    set_xml_data(doc, "Build_ID", str(job_build_id), root)
-    set_xml_data(doc, "Job_Name", str(job_name), root)
-    set_xml_data(doc, "Build_Trigger_Time", build_trigger_time, root)
-    set_xml_data(doc, "Job_Status", job_status, root)
-
     with open(threshold_properties_file, "r") as tp_file:
         line = tp_file.readline()
         while line:
@@ -52,9 +44,22 @@ def get_violated_rule():
                 tag, data = line.split("=")
                 set_xml_data(doc, tag, data, root)
             line = tp_file.readline()
+    
+    with open(build_log_file, "r") as bl_file:
+        line = bl_file.readline()
+        while line:
+            if line.__contains__("~"):
+                tag, data = line.split("~")
+                set_xml_data(doc, tag, data, root)
+            if line.__contains__("Build_ID"):
+                bid_name, bid_value = line.split("~")
+            if line.__contains__("Job_Name"):
+                job_name, job_value = line.split("~")
+            line = bl_file.readline()
+        print(line)
 
-    with open(input_file_path, "r") as ip:
-        line = ip.readline()
+    with open(polyspace_log_file, "r") as lf_file:
+        line = lf_file.readline()
         violations = 0
         regexp = re.compile(r"^rule\s+\w?\d+(\.\d{1,2})?\s+violated\s+\d+\s+\w+")
         rcount_map = defaultdict(int)
@@ -64,12 +69,11 @@ def get_violated_rule():
             if line.__contains__("rules violated"):
                 words = line.split()
                 violations = int(words[0])
-
             elif regexp.search(line):
                 rules = line.split()
                 rnum = rules[1]
                 rcount_map[rnum] = int(rules[3])
-            line = ip.readline()
+            line = lf_file.readline()
         print(rcount_map)
 
         for rn, vc in rcount_map.items():
@@ -92,13 +96,33 @@ def get_violated_rule():
             ts = time.time()
             timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
             db_helper.execute_query(f"""INSERT INTO POLYSPACE(BUILD_ID, JOB_NAME, RULE_NUMBER, VIOLATION_COUNT, TOTAL_VIOLATION, MODIFIED_ON) 
-            VALUES ('{job_build_id}', '{job_name}', '{rn}', '{vc}', '{violations}', '{timestamp}')""")
+            VALUES ('{bid_value}', '{job_value}', '{rn}', '{vc}', '{violations}', '{timestamp}')""")
         
         set_xml_data(doc, "Total_Violation", str(violations), root)
 
-    with open(output_file_path, "w") as op:
+    with open(output_file, "w") as op:
         op.write(doc.toprettyxml(indent="\t"))
-        print(f"Successfully Generated XML {output_file_path}")
+    
+    with open(output_file) as op_file:
+        line = op_file.readline()
+        xml_str = ""
+        while line:
+            regexp1 = re.compile(r".*</root>")
+            regexp2 = re.compile(r"<.*>(.*?)</.*>")
+            if regexp1.search(line) or regexp2.search(line):
+                xml_str = xml_str + line
+            elif not line.__contains__("</"):
+                line.rstrip()
+                xml_str = xml_str + line
+            elif line.__contains__("</Rule_Violated>"):
+                xml_str = xml_str + line
+            else:
+                xml_str = xml_str.rstrip() + line
+            line = op_file.readline()
+
+    with open(output_file, "w") as op_file:
+        op_file.write(xml_str)
+    print("Successfully Generated XML {}".format(output_file))
 
 if __name__ == "__main__":
     get_violated_rule()

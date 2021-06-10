@@ -54,7 +54,14 @@
 						<tr>
 							<td>Build ID</td>
 							<td>
-								<xsl:value-of select="Build_ID"/>
+								<xsl:value-of select="Build_ID"/> - <xsl:value-of select="Build_Type"/>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Job Name</td>
+							<td>
+								<xsl:value-of select="Job_Name"/>
 							</td>
 							<td></td>
 						</tr>
@@ -74,16 +81,16 @@
 							<td></td>
 						</tr>
 						<tr>
-							<td>Build Trigger Time</td>
+							<td>Job URL</td>
 							<td>
-								<xsl:value-of select="Build_Trigger_Time"/>
+								<a href="{Job_URL}"><xsl:value-of select="Job_URL"/></a>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td>Job Name</td>
+							<td>Build Trigger Time</td>
 							<td>
-								<xsl:value-of select="Job_Name"/>
+								<xsl:value-of select="Build_Trigger_Time"/>
 							</td>
 							<td></td>
 						</tr>
@@ -97,7 +104,7 @@
                                     <xsl:value-of select="Total_Violation"/><b> [Successful]</b>
                                 </xsl:if>
                             </td>
-                            <td><a href="javascript:window.location.reload(true)">HTML Report Link</a></td>
+                            <td><a href="{Polyspace_report_url}"><xsl:value-of select="Polyspace_report_url"/></a></td>
                         </tr>
 					</table>
             </body>
