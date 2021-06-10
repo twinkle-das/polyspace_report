@@ -51,12 +51,11 @@ def get_violated_rule():
             if line.__contains__("~"):
                 tag, data = line.split("~")
                 set_xml_data(doc, tag, data, root)
-            if line.__contains__("Build_ID"):
-                bid_name, bid_value = line.split("~")
-            if line.__contains__("Job_Name"):
-                job_name, job_value = line.split("~")
+                if tag == "Build_ID":
+                    bid_value = data
+                if tag == "Job_Name":
+                    job_name_value = data
             line = bl_file.readline()
-        print(line)
 
     with open(polyspace_log_file, "r") as lf_file:
         line = lf_file.readline()
@@ -74,7 +73,6 @@ def get_violated_rule():
                 rnum = rules[1]
                 rcount_map[rnum] = int(rules[3])
             line = lf_file.readline()
-        print(rcount_map)
 
         for rn, vc in rcount_map.items():
 
@@ -96,7 +94,7 @@ def get_violated_rule():
             ts = time.time()
             timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
             db_helper.execute_query(f"""INSERT INTO POLYSPACE(BUILD_ID, JOB_NAME, RULE_NUMBER, VIOLATION_COUNT, TOTAL_VIOLATION, MODIFIED_ON) 
-            VALUES ('{bid_value}', '{job_value}', '{rn}', '{vc}', '{violations}', '{timestamp}')""")
+            VALUES ('{bid_value}', '{job_name_value}', '{rn}', '{vc}', '{violations}', '{timestamp}')""")
         
         set_xml_data(doc, "Total_Violation", str(violations), root)
 

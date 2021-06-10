@@ -39,7 +39,7 @@ class DB_Helper(object):
         try:
             result = self.cursor.execute(query, args)
             self.conn.commit()
-            print("Successfuly executed : " + query)
+            # print("Successfuly executed : " + query)
         except Exception as error:
             print(f"error execting query '{query}', error: {error}")
             return None
