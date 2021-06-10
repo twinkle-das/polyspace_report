@@ -1,8 +1,10 @@
 @echo off
 
-set input_file_path=%1
-set output_file_path=%2
+set polyspace_log_file = %1
+set threshold_properties_file = %2
+set build_log_file = %3
+set output_file = %4
 
-python "polyspaceXML.py" %input_file_path% %output_file_path%
+python "polyspace.py" %polyspace_log_file% %threshold_properties_file% %build_log_file% %output_file%
 
 pause
