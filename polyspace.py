@@ -8,9 +8,8 @@ from Db_Helper import DB_Helper
 import datetime
 
 polyspace_log_file = sys.argv[1]
-threshold_properties_file = sys.argv[2]
-build_log_file = sys.argv[3]
-output_file = sys.argv[4]
+build_log_file = sys.argv[2]
+output_file = sys.argv[3]
 db_helper = DB_Helper()
 
 sql = '''CREATE TABLE IF NOT EXISTS POLYSPACE(
@@ -36,14 +35,6 @@ def get_violated_rule():
     doc = minidom.Document()
     root = doc.createElement("root")
     doc.appendChild(root)
-
-    with open(threshold_properties_file, "r") as tp_file:
-        line = tp_file.readline()
-        while line:
-            if line.__contains__("="):
-                tag, data = line.split("=")
-                set_xml_data(doc, tag, data, root)
-            line = tp_file.readline()
     
     with open(build_log_file, "r") as bl_file:
         line = bl_file.readline()

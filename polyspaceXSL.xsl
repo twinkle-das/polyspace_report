@@ -97,10 +97,13 @@
                         <tr>
                             <td>Quality Analysis</td>
                             <td>
-                                <xsl:if test="Total_Violation > Violation_Threshold">
+								<xsl:if test="not(Quality_Analysis)">
+									<b style='color: red;'>Aborted</b>
+								</xsl:if>
+                                <xsl:if test="Quality_Analysis='Failure'">
                                     <xsl:value-of select="Total_Violation"/><b style='color: red;'> [Failure]</b>
                                 </xsl:if>
-                                <xsl:if test="Total_Violation = Violation_Threshold">
+                                <xsl:if test="Quality_Analysis='Successful'">
                                     <xsl:value-of select="Total_Violation"/><b> [Successful]</b>
                                 </xsl:if>
                             </td>

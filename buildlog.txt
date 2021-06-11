@@ -2,4 +2,4 @@ Build_ID~18
 Job_URL~http://localhost:8080/job/ModMgr4B_dev/18/ 
 Build_Type~${currentBuild.buildCauses.shortDescription}"+"
 Build_Trigger_Time~2021-06-10 08:31:11 EDT 
-Job_Name~ModMgr4B_dev 
+Job_Name~ModMgr4B_dev
