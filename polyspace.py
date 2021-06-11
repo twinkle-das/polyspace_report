@@ -7,7 +7,7 @@ import re
 from Db_Helper import DB_Helper
 import datetime
 
-polyspace_log_file = sys.argv[1]
+polyspacelog_file = sys.argv[1]
 build_log_file = sys.argv[2]
 output_file = sys.argv[3]
 db_helper = DB_Helper()
@@ -48,8 +48,8 @@ def get_violated_rule():
                     job_name_value = data
             line = bl_file.readline()
 
-    with open(polyspace_log_file, "r") as lf_file:
-        line = lf_file.readline()
+    with open(polyspacelog_file, "r") as pl_file:
+        line = pl_file.readline()
         violations = 0
         regexp = re.compile(r"^rule\s+\w?\d+(\.\d{1,2})?\s+violated\s+\d+\s+\w+")
         rcount_map = defaultdict(int)
@@ -63,7 +63,7 @@ def get_violated_rule():
                 rules = line.split()
                 rnum = rules[1]
                 rcount_map[rnum] = int(rules[3])
-            line = lf_file.readline()
+            line = pl_file.readline()
 
         for rn, vc in rcount_map.items():
 
