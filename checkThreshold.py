@@ -1,5 +1,4 @@
 import sys
-from xml.dom import minidom
 
 polyspace_log_file = sys.argv[1]
 threshold_properties_file = sys.argv[2]

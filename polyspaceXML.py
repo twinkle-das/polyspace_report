@@ -154,39 +154,7 @@ def get_violated_rule():
 
     with open(output_file, "w") as op:
         op.write(doc.toprettyxml(indent="\t"))
-
-    with open(output_file) as op_file:
-        line = op_file.readline()
-        xml_str = ""
-        while line:
-            regexp1 = re.compile(r".*</root>")
-            regexp2 = re.compile(r"<.*>(.*?)</.*>")
-            if regexp1.search(line) or regexp2.search(line):
-                xml_str = xml_str + line
-            elif not line.__contains__("</"):
-                line.rstrip()
-                xml_str = xml_str + line
-            elif line.__contains__("</Rule_Violated>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</file_name>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</func_name>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</Cyclomatic_Complexity>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</Language_Scope>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</Goto_Statements>"):
-                xml_str = xml_str + line
-            elif line.__contains__("</Return_Statements>"):
-                xml_str = xml_str + line
-            else:
-                xml_str = xml_str.rstrip() + line
-            line = op_file.readline()
-
-    with open(output_file, "w") as op_file:
-        op_file.write(xml_str)
-    print("Successfully Generated XML {}".format(output_file))
+    print(f"Successfully generated XML {output_file}")
 
 if __name__ == "__main__":
     get_violated_rule()
