@@ -19,4 +19,4 @@ if os.path.isfile(XMLPATH):
     OUTPUT_DOC = XSLT_TRANSFORMER(SOURCE_DOC)
     with open(HTMLPATH, 'w+') as f:
         f.write(str(OUTPUT_DOC))
-    print("Successfully Generated HTML file  {}".format(HTMLPATH))
+    print(f"Successfully Generated HTML file {HTMLPATH}")

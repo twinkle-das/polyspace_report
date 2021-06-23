@@ -1,4 +1,5 @@
 import sys
+from xml.dom import minidom
 
 polyspace_log_file = sys.argv[1]
 threshold_properties_file = sys.argv[2]
@@ -35,6 +36,7 @@ def check_threshold_property():
         append_file("Quality_Analysis~Failure")
     else:
         append_file("Quality_Analysis~Successful")
+    print("Data appended successfully......")
 
 if __name__ == "__main__":
     check_threshold_property()

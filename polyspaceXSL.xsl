@@ -38,6 +38,12 @@
                     } input[name="collapse"] {
                         display: none;
                     }
+					.content{
+						display: none;
+					}
+					.details-btn{
+						cursor: pointer;
+					}
 						
                 </style>
             </head>
@@ -109,8 +115,97 @@
                             </td>
                             <td><a href="{Polyspace_report_url}"><xsl:value-of select="Polyspace_report_url"/></a></td>
                         </tr>
+						<tr>
+							<td>Cyclomatic Complexity</td>
+							<td>
+								<xsl:value-of select="Cyclomatic_Complexity/max_value"/> [<xsl:value-of select="Cyclomatic_Complexity/file_name/func_name"/>]
+							</td>
+							<td><xsl:value-of select="Cyclomatic_Complexity/file_name/@filename"/></td>
+						</tr>
+						<tr>
+							<td>Language Scope</td>
+							<td>
+								<xsl:value-of select="Language_Scope/max_value"/> [<xsl:value-of select="Language_Scope/file_name/func_name"/>]
+							</td>
+							<td><xsl:value-of select="Language_Scope/file_name/@filename"/></td>
+						</tr>
+						<tr class="open-details-btn">
+							<td>Goto Statements
+								<button class="details-btn">+</button>
+							</td>
+							<td><xsl:value-of select="Goto_Statements/max_value"/></td>
+							<td></td>		
+						</tr>
+						<tr class="content">
+							<td colspan="3">
+								<table class="report_main" style="table-layout:fixed">
+									<tr>
+										<th>Function(s)</th>
+										<th>File Path</th>
+									</tr>
+									
+									<xsl:for-each select="Goto_Statements/file_name">
+										<tr>
+											<td>
+												<xsl:value-of select="func_name"/>
+											</td>
+											<td><xsl:value-of select="@filename"/></td>
+										</tr>
+									</xsl:for-each>
+								</table>
+							</td>
+						</tr>
+						<tr class="open-details-btn">
+							<td>Return Statements
+								<button class="details-btn">+</button>
+							</td>
+							<td><xsl:value-of select="Return_Statements/max_value"/></td>
+							<td></td>
+						</tr>
+						<tr class="content">
+							<td colspan="3">
+								<table class="report_main" style="table-layout:fixed">
+									<tr>
+										<th>Function(s)</th>
+										<th>File Path</th>
+									</tr>
+									<xsl:for-each select="Return_Statements/file_name">
+										<tr>
+											<td>
+												<xsl:value-of select="func_name"/>
+											</td>
+											<td><xsl:value-of select="@filename"/></td>
+										</tr>
+									</xsl:for-each>
+								</table>
+							</td>
+						</tr>
 					</table>
             </body>
+			<script><![CDATA[
+				(function() {
+					const openDetailButtons = document.querySelectorAll(".open-details-btn")
+					if(!openDetailButtons.length) {
+						return;
+					}
+					openDetailButtons.forEach((openDetailBtn) => {
+						openDetailBtn.addEventListener('click', function(e) {
+							if(e.target && e.target.nodeName === "BUTTON"){
+								const contentElm = this.nextSibling.nextSibling
+								if(contentElm.classList.contains("content")){
+									if(contentElm.style.display === "table-row"){
+										contentElm.style.display = "none"
+										e.toElement.innerText = "+"
+									} else {
+										contentElm.style.display = "table-row"
+										e.toElement.innerText = "-"
+									}
+								}
+							}
+						})				
+					})
+				})();
+			]]></script>
         </html>
     </xsl:template>
 </xsl:stylesheet>

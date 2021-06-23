@@ -5,3 +5,4 @@ Job_URL~http://127.0.0.1:8080/job/demo_project/ws/
 Build_Type~[Started by timer]
 Build_Trigger_Time~2021-06-09 15:30:43 EDT 
 Polyspace_report_url~http://127.0.0.1:8080/job/demo_project/ws/
+Quality_Analysis~Failure
