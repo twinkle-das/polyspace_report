@@ -11,13 +11,13 @@ build_log_file = sys.argv[2]
 threshold_properties_file = sys.argv[3]
 db_helper = DB_Helper()
 
-sql = '''CREATE TABLE IF NOT EXISTS POLYSPACE(
+db_helper.execute_query("DROP TABLE IF EXISTS CI_metrics")
+
+sql = '''CREATE TABLE CI_metrics(
     id serial PRIMARY KEY,
-    build_id int NOT NULL,
     job_name varchar(255) NOT NULL,
-    rule_number varchar(255) NOT NULL,
-    violation_count int NOT NULL,
-    total_violation int NOT NULL,
+    build_id int NOT NULL,
+    violation int NOT NULL,
     cyclomatic_complexity int NOT NULL,
     language_scope decimal NOT NULL,
     goto_statements int NOT NULL,
@@ -64,42 +64,30 @@ with open(threshold_properties_file, "r") as tp_file:
 with open(polyspacelog_file, "r") as pl_file:
     line = pl_file.readline()
     total_violation = 0
-    regexp = re.compile(r"^rule\s+\w?\d+(\.\d{1,2})?\s+violated\s+\d+\s+\w+")
-    rcount_map = defaultdict(int)
     while line:
         line = line.strip()
         if line.__contains__("rules violated"):
             words = line.split()
             total_violation = int(words[0])
-        elif regexp.search(line):
-            rules = line.split()
-            rnum = rules[1]
-            rcount_map[rnum] = int(rules[3])
         line = pl_file.readline()
-
-    for rn, vc in rcount_map.items():
-        ts = time.time()
-        timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-        db_helper.execute_query(f"""INSERT INTO POLYSPACE(
-            BUILD_ID, 
-            JOB_NAME, 
-            RULE_NUMBER, 
-            VIOLATION_COUNT, 
-            TOTAL_VIOLATION, 
-            CYCLOMATIC_COMPLEXITY, 
-            LANGUAGE_SCOPE, 
-            GOTO_STATEMENTS, 
-            RETURN_STATEMENTS, 
-            MODIFIED_ON) 
-        VALUES (
-            '{bid_value}', 
-            '{job_name_value}', 
-            '{rn}', 
-            '{vc}', 
-            '{total_violation}',
-            '{cc_val}',
-            '{ls_val}',
-            '{gs_val}',
-            '{rs_val}', 
-            '{timestamp}')""")
-    print("Values inserted successfully......")
+ts = time.time()
+timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+db_helper.execute_query(f'''INSERT INTO CI_metrics(
+    JOB_NAME,
+    BUILD_ID,
+    VIOLATION, 
+    CYCLOMATIC_COMPLEXITY, 
+    LANGUAGE_SCOPE, 
+    GOTO_STATEMENTS, 
+    RETURN_STATEMENTS, 
+    MODIFIED_ON) 
+VALUES (
+    '{job_name_value}', 
+    '{bid_value}', 
+    '{total_violation}',
+    '{cc_val}',
+    '{ls_val}',
+    '{gs_val}',
+    '{rs_val}', 
+    '{timestamp}')''')
+print("Values inserted successfully......")
