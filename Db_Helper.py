@@ -38,9 +38,8 @@ class DB_Helper(object):
         '''Method to execute query in postgres'''
         try:
             result = self.cursor.execute(query, args)
-            print(result)
             self.conn.commit()
-            print("Successfuly executed : " + query)
+#             print("Successfuly executed : " + query)
         except Exception as error:
             print(f"error execting query '{query}', error: {error}")
             return None
