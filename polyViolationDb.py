@@ -57,5 +57,3 @@ with open(polyspacelog_file, "r") as pl_file:
         db_helper.execute_query(f'''INSERT INTO tbl_violation_details(BUILD_ID, VIOLATION_CODE, COUNT, MODIFIED_ON) 
         VALUES ('{bid_value}', '{rn}', '{vc}', '{timestamp}')''')
     print("Values inserted successfully......")
-a = "SELECT * FROM tbl_violation_details"
-print(db_helper.execute_query(a))
