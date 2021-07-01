@@ -7,7 +7,8 @@ from htmlParser import HtmlParser
 polyspacelog_file = sys.argv[1]
 build_log_file = sys.argv[2]
 threshold_properties_file = sys.argv[3]
-output_file = sys.argv[4]
+code_metric_file = sys.argv[4]
+output_file = sys.argv[5]
 
 def read_threshold_file():
     map = {}
@@ -54,7 +55,7 @@ def set_xml_data(doc, tag_name, data_name, parent):
 def get_violated_rule():
     map = read_threshold_file()
     print("Threshold values Passed: ", map)
-    hp = HtmlParser()
+    hp = HtmlParser(code_metric_file)
     cc_data = hp.get_file_and_functions("Cyclomatic Complexity", float(map.get('CC')))
     print("Fetched Cyclomatic Complexity files and functions successfully......")
 

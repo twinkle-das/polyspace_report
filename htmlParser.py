@@ -4,10 +4,9 @@ from bs4 import NavigableString
 import ntpath
 from collections import defaultdict
 
-
 class HtmlParser:
-    def __init__(self):
-        with open('Com_CodeMetrics.html') as f:
+    def __init__(self, input):
+        with open(input) as f:
             self.soup = bs(f.read(), 'lxml')
 
     def get_file_and_functions(self, metric, threshold):
