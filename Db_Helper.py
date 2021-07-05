@@ -5,7 +5,7 @@ class DB_Helper(object):
     
     conn=cursor=_obj=None
     user = 'postgres'
-    password = 'tdpostgres19'
+    password = 'tdPostgres19'
     host = '127.0.0.1'
     port = '5432'
     database = 'postgres'
