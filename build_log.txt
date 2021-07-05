@@ -1,0 +1,6 @@
+Build_ID~89 
+Job_URL~http://localhost:8080/job/ModMgr4B_dev/89/ 
+Job_Name~ModMgr4B_dev 
+Build_Trigger_Time~2021-07-03 04:09:31 EDT 
+
+Quality_Analysis~Failure
