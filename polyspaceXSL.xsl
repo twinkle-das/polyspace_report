@@ -60,7 +60,12 @@
 						<tr>
 							<td>Build ID</td>
 							<td>
-								<xsl:value-of select="Build_ID"/> - <xsl:value-of select="Build_Type"/>
+								<xsl:if test="not(Build_Type)">
+									<xsl:value-of select="Build_ID"/>
+								</xsl:if>
+								<xsl:if test="Build_Type">
+									<xsl:value-of select="Build_ID"/> - <xsl:value-of select="Build_Type"/>
+								</xsl:if>
 							</td>
 							<td></td>
 						</tr>
