@@ -15,7 +15,7 @@ db_helper.execute_query("DROP TABLE IF EXISTS CI_metrics")
 
 sql = '''CREATE TABLE CI_metrics(
     id serial PRIMARY KEY,
-    job_name varchar(255) NOT NULL,
+    jobname varchar(255) NOT NULL,
     build_id int NOT NULL,
     violation int NOT NULL,
     cyclomatic_complexity int NOT NULL,
@@ -73,7 +73,7 @@ with open(polyspacelog_file, "r") as pl_file:
 ts = time.time()
 timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 db_helper.execute_query(f'''INSERT INTO CI_metrics(
-    JOB_NAME,
+    JOBNAME,
     BUILD_ID,
     VIOLATION, 
     CYCLOMATIC_COMPLEXITY, 
@@ -81,13 +81,6 @@ db_helper.execute_query(f'''INSERT INTO CI_metrics(
     GOTO_STATEMENTS, 
     RETURN_STATEMENTS, 
     MODIFIED_ON) 
-VALUES (
-    '{job_name_value}', 
-    '{bid_value}', 
-    '{total_violation}',
-    '{cc_val}',
-    '{ls_val}',
-    '{gs_val}',
-    '{rs_val}', 
-    '{timestamp}')''')
+VALUES ('{job_name_value}','{bid_value}','{total_violation}','{cc_val}','{ls_val}','{gs_val}','{rs_val}','{timestamp}')
+''')
 print("Values inserted successfully......")
