@@ -55,10 +55,11 @@ with open(polyspacelog_file, "r") as pl_file:
     for rn, vc in sorted_rcount_map.items():
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-    try:
-        db_helper.execute_query(f'''INSERT INTO tbl_violation_details(BUILD_ID, VIOLATION_CODE, COUNT, MODIFIED_ON) 
-        VALUES ('{bid_value}', '{rn}', '{vc}', '{timestamp}')''')
-    except NameError as e:
-        print ('ERROR.....One or more column data missing missing!!', e)
-    else:
-        print("Values inserted successfully......")
+        print(sorted_rcount_map)
+        try:
+            db_helper.execute_query(f'''INSERT INTO tbl_violation_details(BUILD_ID, VIOLATION_CODE, COUNT, MODIFIED_ON) 
+            VALUES ('{bid_value}', '{rn}', '{vc}', '{timestamp}')''')
+        except NameError as e:
+            print ('ERROR.....One or more column data missing missing!!', e)
+        else:
+            print("Values inserted successfully......")
