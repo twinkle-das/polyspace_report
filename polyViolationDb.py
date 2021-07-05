@@ -10,6 +10,7 @@ import operator
 polyspacelog_file = sys.argv[1]
 build_log_file = sys.argv[2]
 db_helper = DB_Helper()
+bid_value = rn = vc = None
 
 db_helper.execute_query("DROP TABLE IF EXISTS tbl_violation_details")
 
@@ -54,6 +55,10 @@ with open(polyspacelog_file, "r") as pl_file:
     for rn, vc in sorted_rcount_map.items():
         ts = time.time()
         timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    try:
         db_helper.execute_query(f'''INSERT INTO tbl_violation_details(BUILD_ID, VIOLATION_CODE, COUNT, MODIFIED_ON) 
         VALUES ('{bid_value}', '{rn}', '{vc}', '{timestamp}')''')
-    print("Values inserted successfully......")
+    except NameError as e:
+        print ('ERROR.....One or more column data missing missing!!', e)
+    else:
+        print("Values inserted successfully......")

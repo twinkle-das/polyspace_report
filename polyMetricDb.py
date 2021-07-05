@@ -1,3 +1,4 @@
+from os import error
 import time
 from Db_Helper import DB_Helper
 import datetime
@@ -15,7 +16,7 @@ db_helper.execute_query("DROP TABLE IF EXISTS CI_metrics")
 
 sql = '''CREATE TABLE CI_metrics(
     id serial PRIMARY KEY,
-    jobname varchar(255) NOT NULL,
+    job_name varchar(255) NOT NULL,
     build_id int NOT NULL,
     violation int NOT NULL,
     cyclomatic_complexity int NOT NULL,
@@ -72,15 +73,14 @@ with open(polyspacelog_file, "r") as pl_file:
         line = pl_file.readline()
 ts = time.time()
 timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-db_helper.execute_query(f'''INSERT INTO CI_metrics(
-    JOBNAME,
-    BUILD_ID,
-    VIOLATION, 
-    CYCLOMATIC_COMPLEXITY, 
-    LANGUAGE_SCOPE, 
-    GOTO_STATEMENTS, 
-    RETURN_STATEMENTS, 
-    MODIFIED_ON) 
-VALUES ('{job_name_value}','{bid_value}','{total_violation}','{cc_val}','{ls_val}','{gs_val}','{rs_val}','{timestamp}')
-''')
-print("Values inserted successfully......")
+
+
+try:
+    db_helper.execute_query(f'''INSERT INTO CI_metrics(BUILD_ID, JOB_NAME, VIOLATION, CYCLOMATIC_COMPLEXITY, LANGUAGE_SCOPE, 
+        GOTO_STATEMENTS, RETURN_STATEMENTS, MODIFIED_ON) VALUES( '{bid_value}','{job_name_value}','{total_violation}',
+            '{cc_val}','{ls_val}','{gs_val}','{rs_val}','{timestamp}')''')
+ 
+except NameError as e:
+    print ('ERROR.....One or more column data missing!!', e)
+else:
+    print("Values inserted successfully......")
