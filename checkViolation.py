@@ -1,8 +1,7 @@
 import sys
 
 polyspace_log_file = sys.argv[1]
-threshold_properties_file = sys.argv[2]
-build_log_file = sys.argv[3]
+build_log_file = sys.argv[2]
 
 def append_file(content):
     with open(build_log_file, "a+") as bl_file:
@@ -22,16 +21,7 @@ def check_threshold_property():
                 words = line.split()
                 total_violation = int(words[0])
             line = pl_file.readline()
-    with open(threshold_properties_file, "r") as tp_file:
-        line = tp_file.readline()
-        while line:
-            line = line.strip()
-            if line.__contains__("="):
-                property, value = line.split("=")
-                if property.strip() == "violation":
-                    violation_threshold = int(value.strip())
-            line = tp_file.readline()
-    if total_violation > violation_threshold:
+    if total_violation > 0:
         append_file("Quality_Analysis~Failure")
     else:
         append_file("Quality_Analysis~Successful")

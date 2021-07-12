@@ -12,9 +12,7 @@ build_log_file = sys.argv[2]
 threshold_properties_file = sys.argv[3]
 db_helper = DB_Helper()
 
-db_helper.execute_query("DROP TABLE IF EXISTS CI_metrics")
-
-sql = '''CREATE TABLE CI_metrics(
+sql = '''CREATE TABLE IF NOT EXISTS CI_metrics(
     id serial PRIMARY KEY,
     job_name varchar(255) NOT NULL,
     build_id int NOT NULL,
@@ -51,16 +49,16 @@ with open(threshold_properties_file, "r") as tp_file:
         line = line.strip()
         if line.__contains__("="):
             property, value = line.split("=")
-            if value.__contains__("-"):
-                min_val, max_val = value.split("-")
-                map[str(property.strip())] = max_val
+            if value.__contains__(".."):
+                min_val, max_val = value.split("..")
+                map[str(property.strip())] = max_val.strip()
             else:
                 map[str(property.strip())] = value.strip()
         line = tp_file.readline()
-    cc_val = int(map.get("CC"))
-    ls_val = float(map.get("LS"))
-    gs_val = int(map.get("GS"))
-    rs_val = int(map.get("RS"))
+    cc_val = int(map.get("Cyclomatic Complexity"))
+    ls_val = float(map.get("Language Scope"))
+    gs_val = int(map.get("Number of Goto Statements"))
+    rs_val = int(map.get("Number of Return Statements"))
 
 with open(polyspacelog_file, "r") as pl_file:
     line = pl_file.readline()
@@ -74,13 +72,12 @@ with open(polyspacelog_file, "r") as pl_file:
 ts = time.time()
 timestamp = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
-
 try:
     db_helper.execute_query(f'''INSERT INTO CI_metrics(BUILD_ID, JOB_NAME, VIOLATION, CYCLOMATIC_COMPLEXITY, LANGUAGE_SCOPE, 
         GOTO_STATEMENTS, RETURN_STATEMENTS, MODIFIED_ON) VALUES( '{bid_value}','{job_name_value}','{total_violation}',
             '{cc_val}','{ls_val}','{gs_val}','{rs_val}','{timestamp}')''')
- 
 except NameError as e:
     print ('ERROR.....One or more column data missing!!', e)
+    print("Database insertion unsuccessful......")
 else:
     print("Values inserted successfully......")

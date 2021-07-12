@@ -60,19 +60,31 @@
 						<tr>
 							<td>Build ID</td>
 							<td>
-								<xsl:if test="not(Build_Type)">
-									<xsl:value-of select="Build_ID"/>
+								<xsl:if test="not(Build_ID)">
+									<b style='color: red;'>Aborted</b>
 								</xsl:if>
-								<xsl:if test="Build_Type">
-									<xsl:value-of select="Build_ID"/> - <xsl:value-of select="Build_Type"/>
-								</xsl:if>
+								<xsl:choose>
+									<xsl:when test="not(Build_Type)">
+										<xsl:value-of select="Build_ID"/>
+									</xsl:when>
+									<xsl:otherwise>
+										<xsl:value-of select="Build_ID"/> - <xsl:value-of select="Build_Type"/>
+									</xsl:otherwise>
+								</xsl:choose>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Job Name</td>
 							<td>
-								<xsl:value-of select="Job_Name"/>
+							<xsl:choose>
+								<xsl:when test="not(Job_Name)">
+									<b style='color: red;'>Aborted</b>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="Job_Name"/>
+								</xsl:otherwise>
+							</xsl:choose>
 							</td>
 							<td></td>
 						</tr>
@@ -94,14 +106,28 @@
 						<tr>
 							<td>Job URL</td>
 							<td>
-								<a href="{Job_URL}"><xsl:value-of select="Job_URL"/></a>
+							<xsl:choose>
+								<xsl:when test="not(Job_URL)">
+									<b style='color: red;'>Aborted</b>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="Job_URL"/>
+								</xsl:otherwise>
+							</xsl:choose>
 							</td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>Build Trigger Time</td>
 							<td>
-								<xsl:value-of select="Build_Trigger_Time"/>
+							<xsl:choose>
+								<xsl:when test="not(Build_Trigger_Time)">
+									<b style='color: red;'>Aborted</b>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:value-of select="Build_Trigger_Time"/>
+								</xsl:otherwise>
+							</xsl:choose>
 							</td>
 							<td></td>
 						</tr>

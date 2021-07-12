@@ -11,7 +11,7 @@ class HtmlParser:
 
     def get_file_and_functions(self, metric, threshold):
         file_and_functions = defaultdict(list)
-        for metric_path in self.soup(text=re.compile(fr"\({metric}\)")):  # Fetching the full metric filename path
+        for metric_path in self.soup(text=re.compile(fr'\({metric}')):  # Fetching the full metric filename path
             p = metric_path.parent.parent.parent  # finding the <p> tag
             tables = p.find_next_sibling('table')  # finding the <table> tag
             for table in tables:
@@ -20,12 +20,12 @@ class HtmlParser:
                     # finding the function (2nd col) and value (3rd col) from the table
                     for row in rows:
                         function_column = row.findAll('td')[1].findChild('p').findChild('span').text
-                        value_column = row.findAll('td')[2].findChild('p').findChild('span').text
+                        value_column = row.findAll('td')[2].findChild('p').findChild('span').text   
                         if function_column.lower() == 'function' and value_column.lower() == 'value':
                             continue
                         if float(value_column) == threshold:
-                            filepath = metric_path.split("\n")[0]
+                            filepath = metric_path.split(' ')[0]
                             base_path, filename = ntpath.split(filepath)
-                            file = ntpath.basename(base_path) + "\\" + filename # fetching path from src
+                            file = ntpath.basename(base_path) + '\\' + filename # fetching path from src
                             file_and_functions[file].append(function_column)
         return file_and_functions
