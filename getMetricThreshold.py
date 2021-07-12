@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup as bs
 from bs4 import NavigableString
 from collections import defaultdict
 
+print("Argument List:", str(sys.argv))
 code_metric_file = sys.argv[1]
 threshold_props_file = sys.argv[2]
 lookup_table = ['Cyclomatic Complexity', 'Language Scope', 'Number of Goto Statements', 'Number of Return Statements']
