@@ -55,10 +55,10 @@ with open(threshold_properties_file, "r") as tp_file:
             else:
                 map[str(property.strip())] = value.strip()
         line = tp_file.readline()
-    cc_val = int(map.get("Cyclomatic Complexity"))
-    ls_val = float(map.get("Language Scope"))
-    gs_val = int(map.get("Number of Goto Statements"))
-    rs_val = int(map.get("Number of Return Statements"))
+    cc_val = int(map.get("CC"))
+    ls_val = float(map.get("LS"))
+    gs_val = int(map.get("GS"))
+    rs_val = int(map.get("RS"))
 
 with open(polyspacelog_file, "r") as pl_file:
     line = pl_file.readline()
