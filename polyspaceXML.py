@@ -18,8 +18,8 @@ def read_threshold_file():
             line = line.strip()
             if line.__contains__("="):
                 property, value = line.split("=")
-                if value.__contains__(".."):
-                    min_val, max_val = value.split("..")
+                if value.__contains__("-"):
+                    min_val, max_val = value.split("-")
                     map[str(property.strip())] = max_val.strip()
                 else:
                     map[str(property.strip())] = value.strip()
@@ -56,16 +56,16 @@ def get_violated_rule():
     map = read_threshold_file()
     print("Threshold values Passed: ", map)
     hp = HtmlParser(code_metric_file)
-    cc_data = hp.get_file_and_functions("Cyclomatic", float(map.get('Cyclomatic Complexity')))
+    cc_data = hp.get_file_and_functions("Cyclomatic", float(map.get('CC')))
     print("Fetched Cyclomatic Complexity files and functions successfully......")
 
-    ls_data = hp.get_file_and_functions("Language Scope", float(map.get('Language Scope')))
+    ls_data = hp.get_file_and_functions("Language Scope", float(map.get('LS')))
     print("Fetched Language Scope files and functions successfully......")
 
-    gs_data = hp.get_file_and_functions("Number of Goto", float(map.get('Number of Goto Statements')))
+    gs_data = hp.get_file_and_functions("Number of Goto", float(map.get('GS')))
     print("Fetched Number of Goto Statements files and functions successfully......")
 
-    rs_data = hp.get_file_and_functions("Number of Return", float(map.get('Number of Return Statements')))
+    rs_data = hp.get_file_and_functions("Number of Return", float(map.get('RS')))
     print("Fetched Return Statements files and functions successfully......")
     doc = minidom.Document()
     root = doc.createElement("root")
@@ -82,7 +82,7 @@ def get_violated_rule():
         doc,
         "Cyclomatic_Complexity",
         "max_value", 
-        map.get('Cyclomatic Complexity'),
+        map.get('CC'),
         "file_name",
         "func_name",
         cc_data,
@@ -92,7 +92,7 @@ def get_violated_rule():
         doc,
         "Language_Scope",
         "max_value",
-        map.get('Language Scope'),
+        map.get('LS'),
         "file_name",
         "func_name",
         ls_data,
@@ -102,7 +102,7 @@ def get_violated_rule():
         doc,
         "Goto_Statements",
         "max_value", 
-        map.get('Number of Goto Statements'),
+        map.get('GS'),
         "file_name",
         "func_name",
         gs_data,
@@ -112,7 +112,7 @@ def get_violated_rule():
         doc,
         "Return_Statements",
         "max_value", 
-        map.get('Number of Return Statements'),
+        map.get('RS'),
         "file_name",
         "func_name",
         rs_data,

@@ -49,8 +49,8 @@ with open(threshold_properties_file, "r") as tp_file:
         line = line.strip()
         if line.__contains__("="):
             property, value = line.split("=")
-            if value.__contains__(".."):
-                min_val, max_val = value.split("..")
+            if value.__contains__("-"):
+                min_val, max_val = value.split("-")
                 map[str(property.strip())] = max_val.strip()
             else:
                 map[str(property.strip())] = value.strip()
